@@ -55,7 +55,7 @@ If you need to stop and remove all containers, networks, and all images used by 
  ``` 
 docker-compose down --rmi all
 ```
-### Run on local enviroment 
+### Without Docker
 - Clone this repository
 - Make sure you are using Java 17 and Maven 3.x
 - You can build the project by running ```mvn clean package```
@@ -78,8 +78,7 @@ spring.datasource.password=${password}
 
 ### Reference Demo 
 
-You can find relevant Postman Collection in ```
-postman collection directory```
+You can find relevant Postman Collection in [postman collection](/postman%20collection)
 
 #### Add Worker
 
