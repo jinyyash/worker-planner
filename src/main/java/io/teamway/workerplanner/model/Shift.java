@@ -10,6 +10,7 @@ import java.time.LocalTime;
 @Entity
 public class Shift {
 
+    //comment to test
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
