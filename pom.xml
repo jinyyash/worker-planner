@@ -14,7 +14,7 @@
 	<name>workerplanner</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>17</java.version>
+		<build-plugin.jacoco.version>0.8.6</build-plugin.jacoco.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -58,10 +58,66 @@
 	</dependencies>
 
 	<build>
+		<finalName>${project.artifactId}</finalName>
+
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId> <!-- surefire plugin version managed by Spring Boot -->
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+				<executions>
+					<execution>
+						<id>unit-tests</id>
+						<phase>test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<skipTests>false</skipTests>
+							<includes>
+								<include>**/*Test.java</include>
+							</includes>
+						</configuration>
+					</execution>
+					<execution>
+						<id>integration-tests</id>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<skipTests>false</skipTests>
+							<includes>
+								<include>**/*IT.*</include>
+								<include>**/*Tests.*</include>
+							</includes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${build-plugin.jacoco.version}</version>
+				<executions>
+					<!-- Prepares the property pointing to the JaCoCo runtime agent
+                    which is passed as VM argument when Maven the Surefire plugin is executed. -->
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<!-- Ensures that the code coverage report is created after
+                    all tests have been run. -->
+					<execution>
+						<id>generate-report</id>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

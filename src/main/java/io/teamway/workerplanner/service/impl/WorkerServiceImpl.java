@@ -39,7 +39,7 @@ public class WorkerServiceImpl implements WorkerService {
     @Override
     public boolean deleteWorker(Long id) {
         Optional<Worker> worker = workerRepository.findById(id);
-        if (!worker.isEmpty()) {
+        if (!worker.isPresent()) {
             workerRepository.delete(worker.get());
             return true;
         }
